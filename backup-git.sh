@@ -5,8 +5,8 @@ set -e
 export GIT_DIR="/var/git"
 export GIT_WORK_TREE="/target"
 
-if [ ! -d $GIT_DIR ]; then
-    mkdir -p $GIT_DIR
+if [ ! -d "$GIT_DIR" ]; then
+    mkdir -p "$GIT_DIR"
     git init
     git config user.name "$GIT_NAME"
     git config user.email "$GIT_EMAIL"
@@ -18,5 +18,5 @@ if [ ! -d $GIT_DIR ]; then
 fi
 
 git add -A
-git commit -m 'Automatic backup'
+git commit -m "$GIT_COMMIT_MESSAGE"
 git push origin $GIT_BRANCH
