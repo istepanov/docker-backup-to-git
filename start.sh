@@ -25,6 +25,7 @@ GIT_EMAIL=$GIT_EMAIL
 GIT_BRANCH=$GIT_BRANCH
 GIT_URL=$GIT_URL
 GIT_COMMIT_MESSAGE=$GIT_COMMIT_MESSAGE
+GIT_IGNORE=$GIT_IGNORE
 EOM
 )
         echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1" | crontab -
@@ -32,7 +33,7 @@ EOM
         ;;
 
     *)
-        echo $"Usage: $0 {backup|backup-cron}"
+        echo -e $"Error: unknown command $COMMAND. List of available commands:\n* backup (default)\n* backup-cron"
         exit 1
 
 esac
