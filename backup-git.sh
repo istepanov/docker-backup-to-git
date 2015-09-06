@@ -3,7 +3,9 @@
 set -e
 
 export GIT_DIR="/var/git"
-export GIT_WORK_TREE="/target"
+export GIT_WORK_TREE="$TARGET_FOLDER"
+
+echo "$GIT_WORK_TREE"
 
 if [ ! -d "$GIT_DIR" ]; then
     mkdir -p "$GIT_DIR"
@@ -24,10 +26,9 @@ if [ ! -d "$GIT_DIR" ]; then
     git symbolic-ref HEAD refs/remotes/origin/$GIT_BRANCH
     git reset
     git checkout -b $GIT_BRANCH
+    git rm -r --cached . || true
 fi
 
-# re-init index (make sure ignored files are removed from index)
-git rm -r --cached .
 git add -A
 
 git commit -m "$GIT_COMMIT_MESSAGE"

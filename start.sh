@@ -8,10 +8,11 @@ GIT_EMAIL=${GIT_EMAIL:?"GIT_EMAIL env variable is required"}
 GIT_URL=${GIT_URL:?"GIT_URL env variable is required"}
 
 # optional parameters
-CRON_SCHEDULE=${CRON_SCHEDULE:-0 1 * * *}
+CRON_SCHEDULE=${CRON_SCHEDULE:-0 * * * *}
 COMMAND=${1:-backup}
 export GIT_BRANCH=${GIT_BRANCH:-master}
 export GIT_COMMIT_MESSAGE=${GIT_COMMIT_MESSAGE:-Automatic backup}
+export TARGET_FOLDER=${TARGET_FOLDER:-/target}
 
 case "$COMMAND" in
     backup)
@@ -26,6 +27,7 @@ GIT_BRANCH=$GIT_BRANCH
 GIT_URL=$GIT_URL
 GIT_COMMIT_MESSAGE=$GIT_COMMIT_MESSAGE
 GIT_IGNORE=$GIT_IGNORE
+TARGET_FOLDER=$TARGET_FOLDER
 EOM
 )
         echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1" | crontab -
