@@ -26,7 +26,11 @@ if [ ! -d "$GIT_DIR" ]; then
     git symbolic-ref HEAD refs/remotes/origin/$GIT_BRANCH
     git reset
     git checkout -b $GIT_BRANCH
-    git rm -r --cached . || true
+
+    # to get rid of ignored files that are already commited to the repo,
+    # remove all files for index (but not from working directory!),
+    # then re-add everything back to index
+    git rm -r --cached . > /dev/null || true
 fi
 
 git add -A

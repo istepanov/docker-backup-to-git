@@ -20,6 +20,7 @@ case "$COMMAND" in
         ;;
 
     backup-cron)
+        touch /var/log/cron.log
         CRON_ENV=$(cat << EOM
 GIT_NAME='$GIT_NAME'
 GIT_EMAIL='$GIT_EMAIL'
