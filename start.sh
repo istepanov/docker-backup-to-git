@@ -31,8 +31,13 @@ GIT_IGNORE='$GIT_IGNORE'
 TARGET_FOLDER='$TARGET_FOLDER'
 EOM
 )
+        echo 'Initializing cron:'
+        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1"
+
         echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1" | crontab -
-        exec cron -f
+        cron
+
+        exec tail -f /var/log/cron.log
         ;;
 
     *)
