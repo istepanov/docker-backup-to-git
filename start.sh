@@ -20,7 +20,10 @@ case "$COMMAND" in
         ;;
 
     backup-cron)
-        touch /var/log/cron.log
+        LOGFIFO='/var/log/cron.fifo'
+        if [[ ! -e "$LOGFIFO" ]]; then
+            mkfifo "$LOGFIFO"
+        fi
         CRON_ENV=$(cat << EOM
 GIT_NAME='$GIT_NAME'
 GIT_EMAIL='$GIT_EMAIL'
@@ -31,11 +34,11 @@ GIT_IGNORE='$GIT_IGNORE'
 TARGET_FOLDER='$TARGET_FOLDER'
 EOM
 )
-        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1"
-        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh >> /var/log/cron.log 2>&1" | crontab -
+        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh > $LOGFIFO 2>&1"
+        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh > $LOGFIFO 2>&1" | crontab -
         cron
 
-        tail -f /var/log/cron.log
+        tail -f "$LOGFIFO"
         ;;
 
     *)
