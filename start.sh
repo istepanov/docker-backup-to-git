@@ -34,8 +34,8 @@ GIT_IGNORE='$GIT_IGNORE'
 TARGET_FOLDER='$TARGET_FOLDER'
 EOM
 )
-        echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh > $LOGFIFO 2>&1"
         echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup-git.sh > $LOGFIFO 2>&1" | crontab -
+        crontab -l
         cron
 
         tail -f "$LOGFIFO"
