@@ -5,6 +5,7 @@ set -e
 export GIT_DIR="/var/git"
 export GIT_WORK_TREE="$TARGET_FOLDER"
 
+echo "Job started: $(date)"
 echo "$GIT_WORK_TREE"
 
 if [ ! -d "$GIT_DIR" ]; then
@@ -37,3 +38,5 @@ git add -A
 
 git commit -m "$GIT_COMMIT_MESSAGE"
 git push origin $GIT_BRANCH
+
+echo "Job finished: $(date)"
