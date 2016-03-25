@@ -3,9 +3,9 @@
 set -e
 
 # required parameters
-GIT_NAME=${GIT_NAME:?"GIT_NAME env variable is required"}
-GIT_EMAIL=${GIT_EMAIL:?"GIT_EMAIL env variable is required"}
-GIT_URL=${GIT_URL:?"GIT_URL env variable is required"}
+: ${GIT_NAME:?"GIT_NAME env variable is required"}
+: ${GIT_EMAIL:?"GIT_EMAIL env variable is required"}
+: ${GIT_URL:?"GIT_URL env variable is required"}
 
 # optional parameters
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 * * * *}
