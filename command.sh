@@ -1,6 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
+
+# required env vars
+: ${GIT_NAME:?"GIT_NAME env variable is required"}
+: ${GIT_EMAIL:?"GIT_EMAIL env variable is required"}
+: ${GIT_URL:?"GIT_URL env variable is required"}
 
 export GIT_DIR="/var/git"
 export GIT_WORK_TREE="$TARGET_FOLDER"

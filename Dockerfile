@@ -1,17 +1,10 @@
-FROM debian:jessie
+FROM istepanov/cron
 MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
-RUN apt-get update && \
-    apt-get install -y git cron && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-ADD start.sh /start.sh
-RUN chmod +x /start.sh
-
-ADD backup-git.sh /backup-git.sh
-RUN chmod +x /backup-git.sh
+RUN apk add --no-cache git ca-certificates
 
 RUN mkdir -p /target
 
-ENTRYPOINT ["/start.sh"]
-CMD [""]
+ENV GIT_BRANCH 'master'
+ENV GIT_COMMIT_MESSAGE 'Automatic backup'
+ENV TARGET_FOLDER '/target'
